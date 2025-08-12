@@ -1,0 +1,291 @@
+hello everyone in this playlist we'll be building end to end data engineering project using AWS Cloud so the project
+0:08
+is named as Spotify data engineering end to endend project the architecture of the project
+0:15
+is shown here the data will be present in our staging layer then we'll be using
+0:20
+AWS glue to build our ETL pipeline that will take a data from staging layer and
+0:26
+transfer into our data warehouse once our data warehouse is in
+0:32
+place we'll be running a glue crawler that will create a database and populate
+0:38
+a table for our database then we'll be using AWS aena to
+0:44
+query a data present in a table once everything is set up we can
+0:49
+use AWS quick site to to do a visualization and to gain a business
+0:54
+Insight out of our data the data data set that will be
+1:00
+using in this project is Spotify data set
+1:05
+2023 the data set consist of five CSV files albums artist Spotify data Spotify
+1:14
+features and Spotify tracks Spotify albums consist of details
+1:20
+of all the albums tracks artist and the release date of the
+1:27
+album Spotify artist consist of details of the artist name number of followers
+1:33
+in the genre they sing in Spotify data consist of album ID album name album
+1:40
+popularity artist Spotify features consist of
+1:45
+danceability energy loudness mode
+1:51
+speech liveliness and Valance of the music the tracks consist of track ID
+1:58
+track popularity and EXT place it you can view the description of the
+2:04
+data set from this link I'll be attaching this link in the description of the
+2:10
+video the data is in raw format so lots of pre-processing will be
+2:15
+required for this playlist I've already pre-processed the data and I'll be providing the data
+2:21
+set in the link in the description I preprocessed the five CSV
+2:27
+files and built three CSV file out ofit which is
+2:33
+albums artists and tracks I'll be providing
+2:38
+this links in the description so let's get started and start building this
+2:45
+architecture thank you hello everyone let's start our
+2:51
+project in this video we'll be creating IM am user we will be locking into AWS
+2:58
+then we'll be creating IM am M user and then we'll be assigning a relevant role
+3:03
+to the user so let's get started to go to AWS console let's just
+3:11
+type AWS console let's go to the first link since we have already created the
+3:19
+account we can go and click on sign into to the
+3:24
+console as of now we don't have any IM user so let's log into a root user and
+3:31
+create our IM user so go to next and provide a
+3:42
+password we should not be using our root user for the project because root users
+3:48
+may have lots of permissions and any misuse may lead to a big bigger problem
+3:55
+so we should be providing A fine grain access to the users who will will be doing the project so as of now let's go
+4:03
+to IM am so IM am is a service that is used to
+4:09
+give access to the user so let's create a
+4:18
+user so I can Pro create a user as p
+4:24
+o since we need access to the AWS console so I can just go and click here
+4:32
+I want to create the I am user so I need to take here I can provide a custom password as
+4:39
+of
+4:48
+now we need to change a password in a later section hence I'm just showing it as of
+4:55
+now I can just go and click next so now now we need to attach necessary
+5:02
+permissions to our user for this project we are using S3
+5:10
+bucket we are using AWS glue we are using aena and quick
+5:16
+side so I'll be providing access to these all services for this
+5:23
+user I'll be providing Amazon S3 full access but for a real world project we
+5:30
+can also F grain this and provide access like Amazon S3 readon access Amazon S3
+5:38
+create bucket access similarly I'll be providing AWS
+5:46
+glue full access Amazon aena full
+5:58
+access
+6:05
+and Amazon quicksite atina
+6:10
+access yeah so after all the access is selected I can just see the permission
+6:17
+boundary as well as for this project we not we don't need to set a permission boundary so I can just go and click
+6:23
+next so these are the acces that we are providing for this project now I can create a
+6:32
+user now for this project I'll be signing in as this user so I can just go
+6:39
+into this I can just copy this link now I can sign it sign out from the
+6:45
+root user account I can paste this
+6:56
+link I can provide a user ID and
+7:07
+I am prompted to change the
+7:28
+password
+7:36
+now our password is changed now I can see I can logged in as a im am user and
+7:43
+I have access to
+7:51
+S3 see now if I go to any other service I can see that access denied when I go
+7:57
+to Cloud was
+8:03
+you know so I can log in into AWS services like this so we have already provided a necessary permission required
+8:10
+for this project so from next video we'll be starting to create our
+8:18
+bucket thank you hello everyone in this video we'll
+8:25
+be creating our S3 bucket and we'll be creating a staging in data leg
+8:31
+bucket and we'll be adding a required data into our
+8:36
+bucket so we can see that we have S3 staging and S3 data warehouse so we'll
+8:42
+be creating a we will be creating a S3 bucket and we'll be creating a folder named staging
+8:50
+and we'll be creating a folder name data
+8:57
+warehouse and we can add our data that is provided in the description in in the S3 staging then we'll be creating a AWS
+9:03
+data Pipeline and we'll be transferring a data from S3 staging to a data
+9:08
+warehouse after doing required Transformations let's go ahead and create a S3 bucket for that let's first
+9:16
+go ahead in AWS
+9:24
+console we can go in services and we can go and search for
+9:34
+storage we can go to S3 let's create a
+9:41
+bucket a bucket name should be unique so let's just
+9:48
+write
+9:54
+project date with data
+10:00
+let's leave as it is and let's go and create
+10:06
+bucket once our bucket is created let's create two folders named staging and
+10:12
+data
+10:24
+warehouse our staging layer is created now let's create one more folder named
+10:32
+data
+10:39
+warehouse now we can see that both of our layers are
+10:45
+created in real time data in a staging layer will be coming from through Dynamo
+10:51
+DB or our database instance but for this project we are not making use of Dynamo
+10:58
+DB or database hence we are adding our data manually so let's upload the
+11:11
+data we need to upload three CSV files that are albums artists and tracks I can
+11:19
+go and click open I can just go and click upload
+11:27
+now
+11:34
+now I can go and cl click close now I can see that all the three data points
+11:40
+data sets are available staging so in our next video we'll be
+11:48
+creating AWS glue data pipeline to move a data from staging layer to Data
+11:54
+Warehouse we'll be doing a necessary joins and necessary data transformation
+12:01
+and moving our data from staging to Data Warehouse layer thank you hello everyone in this
+12:09
+video we'll be trying to create a data pipeline that will transfer our data
+12:15
+from staging layer to Data Warehouse we'll be making use of AWS
+12:21
+clue to create data pipeline so this is our architecture that we need to implement so in this video we'll be implementing this part of
+12:41
+our architecture so we have data in staging layer the data has come from different
+12:48
+transactional DB as of now we have just uploaded data into staging layer but in
+12:54
+real time the data will be coming through from different places into the staging layer after that we'll be making
+13:02
+use of the glue ETL that will help us to transform and transfer the data from
+13:09
+staging layer to Data
+13:15
+Warehouse so we'll be creating this pipeline that will help us to take three
+13:21
+data three data from our source bucket and transfer into it into a destination
+13:27
+bucket so these are the transformation that we'll be doing before transporting
+13:33
+transporting it into a destination bucket so let's get started and build
+13:38
+the project for that let's go and search
+13:47
+glue glue have made very easy for us to implement a data pipeline glue app
+13:55
+created something called visual ETL that will help us to generate a byar code
+13:01
+visually using AWS service so now I can visually drag and
+13:11
+drop the source and destination bucket and all the transformation that are
+13:16
+required to be done our source can be anything like AWS
+13:21
+glue catalog kessis cafka or Postal as of now our source is AWS
+13:29
+S3 so we have three Source One is track one is album and one is
+13:34
+artist let's drag three times now let's make this as
+13:44
+artist and I can browse
+13:52
+this now we know the file format is CSP once we provide a correct file
+13:58
+format and correct path I can see it have turned into green now let's go and do for
+14:20
+album now let's go and do for
+14:27
+tracks let's provide the
+14:35
+path let's provide the format as
+14:43
+CSP now we can see that all the three sources are marked
+14:48
+green now the next step is to join album and
+14:55
+artist now I need to add transform and
+14:01
+join we need to
+14:15
+join album and artist we can clearly see how much easy
+14:20
+it have made for us and we can add the condition as
+14:33
+artist ID and
+14:44
+ID album and
+14:54
+artist now we need to join track back and this
+14:26
+joint the condition is track ready now next step is to drop all the
+14:35
+unnecessary
+14:41
+column we can go and select drop
+14:56
+field now we can see see all the FI that are there we know that this track ID is
+14:02
+coming two times so I can drop one and this ID and artist
+14:08
+ID is again a inner join so I can drop one ID so all the other things can be
+14:14
+kept as it is now next step is to put it into a
+14:19
+destination bucket now there's a source and there's a Target our Target can also be anything\nfrom post Grace equal Terra dat my SQL Google big\nquery S3 so as of now we are working with\nS3 so now in\nS3 so the format that we want to save is paret and further we can compress our\ndata for the faster query and for the lower storage so let's take s Snappy\nand let's make our Target as data\nwarehouse now our pipeline is ready I can run this\nas now we can go and click on script we can see that it have automatically\npopulated for us the AWS script this is written in ppar so we can\nEAS easily read from here what it is doing it is going and fetching a data from that is artist. CSP and this node\nis doing fetching a data as albums. CSP and this is fetching tracks. CSP now\nwhat it is next doing it is joining on artist ID and ID these two frames that\nis albums and artist next we are joining the output\nwith with the track and whatever is a joined we are dropping track ID and ID\nand it is now saved into a data warehouse so that is our overall job in\nour next video we'll be running and monitoring this data pipeline thank you\n
