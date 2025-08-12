@@ -2,7 +2,7 @@
 
 ## 📌 Objective
 This project is designed as a **hands-on guide** to understanding how to **integrate multiple AWS services** to build a simple, end-to-end **data engineering pipeline**.  
-It's suitable for beginners and intermediate learners who want to learn:
+It's suitable for learners who want to learn:
 
 - How to **store and organize raw data** in Amazon S3
 - How to **process and transform data** with AWS Glue (PySpark)
@@ -15,7 +15,7 @@ By the end you will not only be able to reproduce the pipeline, you'll understan
 ---
 
 ## 🏗️ Architecture
-Add your architecture diagram to `images/architecture.png`. A placeholder image has been included.
+![AWS Architecture](images/architecture.png)
 
 ---
 
@@ -42,12 +42,10 @@ Add your architecture diagram to `images/architecture.png`. A placeholder image 
 spotify-data-engineering-aws/
 │
 ├── README.md
-├── LICENSE
 ├── .gitignore
 ├── code/
 │   └── glue_etl_job.py
 ├── docs/
-│   ├── project_transcript.md
 │   └── dataset_description.md
 ├── sql/
 │   └── athena_queries.sql
@@ -98,7 +96,3 @@ spotify-data-engineering-aws/
 - `sql/athena_queries.sql` — example analytics queries
 
 ---
-
-## License
-MIT — see `LICENSE`.
-
