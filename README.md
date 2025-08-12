@@ -92,7 +92,6 @@ spotify-data-engineering-aws/
 ## Files to customize
 - `images/architecture.png` — replace placeholder with your architecture screenshot
 - `code/glue_etl_job.py` — the production Glue job (already included)
-- `docs/project_transcript.md` — cleaned transcript (already included)
 - `sql/athena_queries.sql` — example analytics queries
 
 ---
