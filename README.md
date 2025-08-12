@@ -2,7 +2,7 @@
 
 ## 📌 Objective
 This project is designed as a **hands-on guide** to understanding how to **integrate multiple AWS services** to build a simple, end-to-end **data engineering pipeline**.  
-It's suitable for beginners and intermediate learners who want to learn:
+It's suitable for learners who want to learn:
 
 - How to **store and organize raw data** in Amazon S3
 - How to **process and transform data** with AWS Glue (PySpark)
